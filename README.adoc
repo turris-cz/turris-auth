@@ -1,0 +1,8 @@
+= Lighttpd Turris Authenticator
+CZ.NIC z.s.p.o. <packaging@turris.cz>
+v1.0, 2021-08-15
+:icons:
+
+This implements simple login gateway for Turris web interface. It can be easily
+applied to any website and that way protects any web application running on the
+router.
