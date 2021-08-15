@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+import argparse
+import getpass
+import sys
+
+import euci
+import pbkdf2
+
+PASSWORD_ITERATIONS = 1000
+
+
+def set_password(password):
+    """Sets given password as the password for turris-auth."""
+    new_password_hash = pbkdf2.crypt(password, iterations=PASSWORD_ITERATIONS)
+    with euci.EUci() as uci:
+        uci.set("turris-auth", "admin", "auth")
+        uci.set("turris-auth", "admin", "password", new_password_hash)
+
+
+def input_password():
+    """Request password from user through terminal."""
+    while True:
+        password1 = getpass.getpass("New password (input not printed!): ")
+        password2 = getpass.getpass("New password again: ")
+        if password1 == password2:
+            return password1
+        print("Passwords do not match! Please try again.", file=sys.stderr)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Set turris authentication")
+    parser.add_argument(
+        "--password",
+        help="Set given password for authentication (this is insecure and passing password trough STDIN is more secure)",
+    )
+    args = parser.parse_args()
+
+    password = args.password or input_password()
+
+    set_password(password)
+    sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()

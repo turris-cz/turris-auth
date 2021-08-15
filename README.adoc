@@ -6,3 +6,64 @@ v1.0, 2021-08-15
 This implements simple login gateway for Turris web interface. It can be easily
 applied to any website and that way protects any web application running on the
 router.
+
+== Dependencies
+
+* https://www.lighttpd.net/[Lighttpd with magnet module]
+* https://www.python.org[Python3]
+* https://pypi.org/project/pbkdf2/[pbkdf2 Python3 module]
+* https://jinja2docs.readthedocs.io/en/stable/[Jinja2]
+
+== Installation
+
+The authenticator requires lighttpd's magnet module to work.
+
+The login gateway itself consists of three major parts. There is a Python CGI
+script that implements authentication, lighttpd's magnet script and lighttpd
+configuration. There are also resources for login page.
+
+To install all in the appropriate place you can use `install.sh` script. This
+script expects as an optional first argument the destination (path to root
+filesystem it should be installed to which is in the default `/`).
+
+== Enable for the web
+
+To enable authentication for specific URL you can just add to the relevant
+lighttpd configuration section the magnet script.
+
+For reForis this would look like this:
+
+----
+$HTTP["url"] =~ "^/reforis" {
+	magnet.attract-physical-path-to = ("/usr/share/lighttpd-turris-auth/magnet.lua" )
+}
+----
+
+[NOTICE]
+  Some web applications get heavily cached. The effect is that once accessed the
+  core web page is not requested again and is instead served from cache. This
+  creates issue if user logouts or if login timeouts the user is simply never
+  redirected to login page. The hacky solution is to always use `/login` to
+  access the page. As an example let's take Netdata with URL `/netdata` we would
+  use `/login?orig=/netdata` instead in URLs. This is only workaround till we
+  found out how to solve this issue.
+
+== Configuration
+
+[WARNING]
+  The configuration is performed trough UCI. The passwords should not be stored
+  in the plain form they are stored hashed and producing the correct value is
+  not direct. Because of that we provide simple tool `set-turris-auth`. You
+  should use that to set or change password instead (unless you know what you
+  are doing).
+
+The configuration is stored in UCI config `turris-auth`. Right now the only
+expected section is of type `auth` with value `admin` which is expected to
+contain:
+
+password:: This is hash of password
+
+----
+config auth 'admin'
+	option password '$p5k2$3e8$0rDNDvAY$kymkJgP.A3JR69dEHAr7EDPnsybVqxeW'
+----
