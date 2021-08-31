@@ -7,7 +7,7 @@ if lighty.request.Cookie then
 	for cookiepair in lighty.request.Cookie:gmatch("[^;]+") do
 		local key, value = cookiepair:match("(%S+)=(.*);?")
 		if key == "turrisauth" then
-			logged = os.execute(auth .. " --verify '" .. value .. "'") == 0
+			logged = os.execute(auth .. " --verify '" .. value:gsub("'", "\\'") .. "'") == 0
 			break
 		end
 	end
