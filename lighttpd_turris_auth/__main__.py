@@ -1,25 +1,13 @@
-#!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright 2021, CZ.NIC z.s.p.o. (http://www.nic.cz/)
 import argparse
 import getpass
 import sys
 
-import euci
-import pbkdf2
-
-PASSWORD_ITERATIONS = 1000
+from . import password
 
 
-def set_password(password):
-    """Sets given password as the password for turris-auth."""
-    new_password_hash = pbkdf2.crypt(password, iterations=PASSWORD_ITERATIONS)
-    with euci.EUci() as uci:
-        uci.set("turris-auth", "admin", "auth")
-        uci.set("turris-auth", "admin", "password", new_password_hash)
-
-
-def input_password():
+def input_password() -> str:
     """Request password from user through terminal."""
     while True:
         password1 = getpass.getpass("New password (input not printed!): ")
@@ -37,9 +25,8 @@ def main():
     )
     args = parser.parse_args()
 
-    password = args.password or input_password()
-
-    set_password(password)
+    new_password = args.password or input_password()
+    password.assign(new_password)
     sys.exit(0)
 
 

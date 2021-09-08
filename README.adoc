@@ -1,6 +1,6 @@
 = Lighttpd Turris Authenticator
 CZ.NIC z.s.p.o. <packaging@turris.cz>
-v1.0, 2021-08-15
+v0.0, 2021-08-15
 :icons:
 
 This implements simple login gateway for Turris web interface. It can be easily
@@ -9,44 +9,58 @@ router.
 
 == Dependencies
 
-* https://www.lighttpd.net/[Lighttpd with magnet module]
+* https://www.lighttpd.net/[Lighttpd with fastcgi module]
 * https://www.python.org[Python3]
 * https://pypi.org/project/pbkdf2/[pbkdf2 Python3 module]
+* https://pypi.org/project/flup/[Flup Python3 module]
 * https://jinja2docs.readthedocs.io/en/stable/[Jinja2]
 
 == Installation
 
-The authenticator requires lighttpd's magnet module to work.
+The installaction can be performed as you are used to install any other Python
+packages from sources. For example with pip you can run following command in the
+project directory:
 
-The login gateway itself consists of three major parts. There is a Python CGI
-script that implements authentication, lighttpd's magnet script and lighttpd
-configuration. There are also resources for login page.
+[,sh]
+----
+pip3 install .
+----
 
-To install all in the appropriate place you can use `install.sh` script. This
-script expects as an optional first argument the destination (path to root
-filesystem it should be installed to which is in the default `/`).
+To make it all work you have to include the appropriate configuration in the
+Lighttpd. It is enough to include the following line in the configuration file:
+
+----
+include_shell "lighttpd-turris-auth-server --config"
+----
 
 == Enable for the web
 
 To enable authentication for specific URL you can just add to the relevant
-lighttpd configuration section the magnet script.
+lighttpd configuration section the setting `fastcgi.server` with server `(
+turris_auth_scriptname => turris_auth )`.
 
-For reForis this would look like this:
+For Netdata this would look like this:
 
 ----
-$HTTP["url"] =~ "^/reforis" {
-	magnet.attract-physical-path-to = ("/usr/share/lighttpd-turris-auth/magnet.lua" )
+$HTTP["url"] =~ "^/netdata" {
+	fastcgi.server = ( "/netdata" => ( turris_auth_scriptname => turris_auth ))
 }
 ----
 
 [NOTICE]
-  Some web applications get heavily cached. The effect is that once accessed the
-  core web page is not requested again and is instead served from cache. This
-  creates issue if user logouts or if login timeouts the user is simply never
-  redirected to login page. The hacky solution is to always use `/login` to
-  access the page. As an example let's take Netdata with URL `/netdata` we would
-  use `/login?orig=/netdata` instead in URLs. This is only workaround till we
-  found out how to solve this issue.
+====
+Some web applications configure their index page to be cached. The effect is
+that once accessed the core web page is not requested again and is instead
+served from cache. This creates issue if user logouts or if login timeouts. The
+user is simply never redirected to login page. The solution is to always force
+revalidation. The revalidation makes use of cache but only if response is valid
+so network traffic is somewhat saved. To force revalidation you can add the
+line:
+
+----
+setenv.add-response-header = ("Cache-Control" => "must-revalidate, proxy-revalidate, max-age=0")
+----
+====
 
 == Configuration
 
