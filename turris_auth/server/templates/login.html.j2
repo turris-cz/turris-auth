@@ -8,7 +8,8 @@ Copyright 2021, CZ.NIC z.s.p.o. (http://www.nic.cz/)
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link rel="shortcut icon" href="/turris-auth/favicon.ico">
-	<link rel="stylesheet" href="/turris-auth/app.css">
+	<link rel="stylesheet" href="/turris-auth/bootstrap.min.css">
+	<link rel="stylesheet" href="/turris-auth/custom.css">
 	<title>Login - Turris</title>
 </head>
 <body id="login-body" class="text-center" data-new-gr-c-s-check-loaded="8.881.0" data-gr-ext-installed="">
@@ -16,7 +17,7 @@ Copyright 2021, CZ.NIC z.s.p.o. (http://www.nic.cz/)
 		<img class="mb-3" src="/turris-auth/logo.svg" alt="Turris Logo" width="280">
 
 {% if wrongpass %}
-		<div class="alert alert-danger">
+		<div class="alert alert-danger wrong-password-danger">
 			<span>Wrong password.</span>
 		</div>
 {% endif %}
