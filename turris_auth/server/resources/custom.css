@@ -37,3 +37,11 @@ body, html {
 	color: #fff;
 	background-color: #e74c3c;
 }
+
+.http-warning {
+	max-width: 640px;
+	padding: 15px;
+	margin: 0 auto;
+	background-color: #f39c12;
+	color: #fff;
+}

@@ -13,19 +13,30 @@ Copyright 2021, CZ.NIC z.s.p.o. (http://www.nic.cz/)
 	<title>Login - Turris</title>
 </head>
 <body id="login-body" class="text-center" data-new-gr-c-s-check-loaded="8.881.0" data-gr-ext-installed="">
-	<form method="POST" class="form-login">
-		<img class="mb-3" src="/turris-auth/logo.svg" alt="Turris Logo" width="280">
+	<div class="container-sm">
 
+		<form method="POST" class="form-login">
+			<img class="mb-3" src="/turris-auth/logo.svg" alt="Turris Logo" width="280">
 {% if wrongpass %}
-		<div class="alert alert-danger wrong-password-danger">
-			<span>Wrong password.</span>
+			<div class="alert alert-danger wrong-password-danger">
+				<span>Wrong password.</span>
+			</div>
+{% endif %}
+			<label for="inputPassword" class="sr-only">Password</label>
+			<input type="password" id="inputPassword" class="form-control" placeholder="Password" autocomplete="current-password" name="password" autofocus="" required="">
+			<button class="btn btn-primary btn-block mb-3" type="submit">Log in</button>
+		</form>
+
+{% if insecure %}
+		<div class="row alert alert-warning http-warning align-items-center">
+			<img class="mb-3 col-auto" src="/turris-auth/broken-padlock.svg" alt="Broken padlock" height="120">
+			<div class="col text-left">
+				<p>You are connected over insecure protocol!</p>
+				<p>This can be exploited by attackers to gain access to your password and thus to router's configuration. We highly suggest that you use secure connection to login to router's web services.</p>
+			</div>
 		</div>
 {% endif %}
 
-		<label for="inputPassword" class="sr-only">Password</label>
-		<input type="password" id="inputPassword" class="form-control" placeholder="Password" autocomplete="current-password" name="password" autofocus="" required="">
-		<button class="btn btn-primary btn-block mb-3" type="submit">Log in</button>
-
-	</form>
+	</div>
 </body>
 </html>

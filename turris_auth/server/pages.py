@@ -22,6 +22,6 @@ class Pages:
         self._login = self.env.get_template(self.LOGIN)
 
     @functools.lru_cache()
-    def login(self, wrongpass: bool = False) -> str:
+    def login(self, wrongpass: bool = False, insecure: bool = True) -> str:
         """Login page for entering password and other login information for authentication."""
-        return self._login.render(wrongpass=wrongpass)
+        return self._login.render(wrongpass=wrongpass, insecure=insecure)
