@@ -22,9 +22,7 @@ STATUS_FOUND = f"{http.HTTPStatus.FOUND.value} {http.HTTPStatus.FOUND.phrase}"
 STATUS_SEE_OTHER = f"{http.HTTPStatus.SEE_OTHER.value} {http.HTTPStatus.SEE_OTHER.phrase}"
 STATUS_UNAUTHORIZED = f"{http.HTTPStatus.UNAUTHORIZED.value} {http.HTTPStatus.UNAUTHORIZED.phrase}"
 STATUS_NOT_FOUND = f"{http.HTTPStatus.NOT_FOUND.value} {http.HTTPStatus.NOT_FOUND.phrase}"
-STATUS_INTERNAL_SERVER_ERROR = (
-    f"{http.HTTPStatus.INTERNAL_SERVER_ERROR.value} {http.HTTPStatus.INTERNAL_SERVER_ERROR.phrase}"
-)
+STATUS_SERVER_ERROR = f"{http.HTTPStatus.INTERNAL_SERVER_ERROR.value} {http.HTTPStatus.INTERNAL_SERVER_ERROR.phrase}"
 
 
 class Server:
@@ -58,7 +56,7 @@ class Server:
                 start_response(STATUS_NOT_FOUND, [("Content-type", "text/plain")])
                 return ["404 Not found"]
             except Exception:
-                start_response(STATUS_INTERNAL_SERVER_ERROR, [("Content-type", "text/html")])
+                start_response(STATUS_SERVER_ERROR, [("Content-type", "text/html")])
                 # TODO append info where to submit the issue
                 return [cgitb.html(sys.exc_info())]
 
@@ -76,7 +74,8 @@ class Server:
         if cookie.verify(environ.get("HTTP_COOKIE")):
             start_response(STATUS_FOUND, [("Location", environ.get("QUERY_STRING") or "/")])
             return []
-        start_response(STATUS_OK, [("Content-type", "text/html")])
+        # We allow here any origin as we are attempting redirect to https which is cross-site
+        start_response(STATUS_OK, [("Content-type", "text/html"), ("Access-Control-Allow-Origin", "*")])
         return [self.pages.login(insecure=environ["REQUEST_SCHEME"] == "http")]
 
     def _login_post(self, environ, start_response):

@@ -2,6 +2,7 @@
 SPDX-License-Identifier: GPL-3.0-or-later
 Copyright 2021, CZ.NIC z.s.p.o. (http://www.nic.cz/)
 #}
+<!doctype html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -10,6 +11,15 @@ Copyright 2021, CZ.NIC z.s.p.o. (http://www.nic.cz/)
 	<link rel="shortcut icon" href="/turris-auth/favicon.ico">
 	<link rel="stylesheet" href="/turris-auth/bootstrap.min.css">
 	<link rel="stylesheet" href="/turris-auth/custom.css">
+	<script type="text/javascript">
+		if (location.protocol !== 'https:') {
+			let href_ssl = location.href.replace("http://", "https://");
+			fetch(href_ssl).then(function(response) {
+				if (response.ok)
+					location.href = href_ssl;
+			}).catch(error => {});
+		}
+	</script>
 	<title>Login - Turris</title>
 </head>
 <body id="login-body" class="text-center" data-new-gr-c-s-check-loaded="8.881.0" data-gr-ext-installed="">
