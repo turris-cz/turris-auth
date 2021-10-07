@@ -12,7 +12,7 @@ RESOURCES = pathlib.Path(__file__).parent / "resources"
 def _server(authorizer: bool) -> str:
     return f"""(
     "socket" => "/tmp/fastcgi.turris_auth.socket",
-    "bin-path" => "{shutil.which('lighttpd-turris-auth-server')}",
+    "bin-path" => "{shutil.which('turris-auth-server')}",
     "check-local" => "disable",
     "min-procs" => 0,
     "max-procs" => 1,
@@ -23,7 +23,7 @@ def _server(authorizer: bool) -> str:
 
 def config() -> str:
     """Returns string with desired Lighttpd configuration."""
-    return f"""# Automatically generated configuration for lighttpd-turris-auth.
+    return f"""# Automatically generated configuration for turris-auth.
 var.turris_auth_scriptname = "turris-auth"
 var.turris_auth = {_server(True)}
 var.turris_auth_responder = ( turris_auth_scriptname => {_server(False)})

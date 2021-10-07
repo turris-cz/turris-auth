@@ -2,22 +2,22 @@
 from setuptools import setup
 
 setup(
-    name='lighttpd-turris-auth',
+    name='turris-auth',
     version='0.2.0',
-    description="Lighttpd Turris Authenticator",
-    url="https://gitlab.nic.cz/turris/lighttpd-turris-auth",
+    description="Turris Authenticator for web applications",
+    url="https://gitlab.nic.cz/turris/turris-auth",
     author="CZ.NIC, z. s. p. o.",
     author_email="packaging@turris.cz",
     license="GPL-3.0-or-later",
 
-    packages=['lighttpd_turris_auth', 'lighttpd_turris_auth.server'],
+    packages=['turris_auth', 'turris_auth.server'],
     package_data={
-        'lighttpd_turris_auth.server': ['templates/*.j2', 'resources/**']
+        'turris_auth.server': ['templates/*.j2', 'resources/**']
     },
     entry_points={
         'console_scripts': [
-            'set-turris-auth = lighttpd_turris_auth.__main__:main',
-            'lighttpd-turris-auth-server = lighttpd_turris_auth.server.__main__:main'
+            'set-turris-auth = turris_auth.__main__:main',
+            'turris-auth-server = turris_auth.server.__main__:main'
         ]
     },
     install_requires=[

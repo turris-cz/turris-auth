@@ -28,7 +28,7 @@ STATUS_INTERNAL_SERVER_ERROR = (
 
 
 class Server:
-    """The lighttpd-turris-auth fast CGI server implementation."""
+    """The turris-auth fast CGI server implementation."""
 
     def __init__(self, report_invalid_password: bool = False):
         self.report_invalid_password = report_invalid_password
