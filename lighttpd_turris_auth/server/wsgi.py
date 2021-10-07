@@ -66,7 +66,10 @@ class Server:
         if cookie.verify(environ.get("HTTP_COOKIE")):
             start_response(STATUS_OK, [])
         else:
-            start_response(STATUS_SEE_OTHER, [("Location", f"/login?{environ['REQUEST_URI']}")])
+            if (environ.get("HTTP_X_REQUESTED_WITH") or "") == "":
+                start_response(STATUS_SEE_OTHER, [("Location", f"/login?{environ['REQUEST_URI']}")])
+            else:  # X-Requested-With header is not used by browser but should be specified by AJAX requests
+                start_response(STATUS_UNAUTHORIZED, [])
         return []
 
     def _login(self, environ, start_response):
