@@ -23,6 +23,7 @@ setup(
     install_requires=[
         "pbkdf2",
         "jinja2",
+        "flup",
         "pyuci @ git+https://gitlab.nic.cz/turris/pyuci.git",
     ],
 )
