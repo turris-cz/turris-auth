@@ -8,12 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: turris-auth 0.2.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-11-16 10:49+0100\n"
-"PO-Revision-Date: 2021-11-16 10:35+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2021-11-16 13:05+0100\n"
+"PO-Revision-Date: 2021-11-16 10:22+0000\n"
+"Last-Translator: Karel Kočí <karel.koci@nic.cz>\n"
 "Language: cs\n"
-"Language-Team: cs <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2)\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/turris/turris-"
+"auth/cs/>\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,24 +22,24 @@ msgstr ""
 
 #: turris_auth/server/templates/login.html.j2:23
 msgid "Login"
-msgstr ""
+msgstr "Přihlášení"
 
 #: turris_auth/server/templates/login.html.j2:32
 msgid "Wrong password."
-msgstr ""
+msgstr "Špatné heslo."
 
 #: turris_auth/server/templates/login.html.j2:35
 #: turris_auth/server/templates/login.html.j2:36
 msgid "Password"
-msgstr ""
+msgstr "Heslo"
 
 #: turris_auth/server/templates/login.html.j2:37
 msgid "Log in"
-msgstr ""
+msgstr "Přihlášení"
 
 #: turris_auth/server/templates/login.html.j2:44
 msgid "You are connected over insecure protocol!"
-msgstr ""
+msgstr "Jste připojeni přes nezabezpečený protokol!"
 
 #: turris_auth/server/templates/login.html.j2:45
 msgid ""
@@ -46,4 +47,7 @@ msgid ""
 "thus to router's configuration. We highly suggest that you use secure "
 "connection to login to router's web services."
 msgstr ""
+"Toto může být využito útočníkem k získání přístupu k vašemu heslu a ke "
+"konfiguraci routeru. Důrazně doporučujeme použití zabezpečeného spojení "
+"pro přihlašování do webových služeb routeru."
 
