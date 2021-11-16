@@ -14,6 +14,7 @@ import flup.server.fcgi_base
 
 from .. import cookie, password
 from . import pages
+from .foris_lang import foris_language
 
 logger = logging.getLogger(__package__)
 
@@ -76,7 +77,7 @@ class Server:
             return []
         # We allow here any origin as we are attempting redirect to https which is cross-site
         start_response(STATUS_OK, [("Content-type", "text/html"), ("Access-Control-Allow-Origin", "*")])
-        return [self.pages.login(insecure=environ["REQUEST_SCHEME"] == "http")]
+        return [self.pages.login(foris_language(), insecure=environ["REQUEST_SCHEME"] == "http")]
 
     def _login_post(self, environ, start_response):
         form = cgi.FieldStorage(fp=environ["wsgi.input"], environ=environ)
@@ -88,7 +89,7 @@ class Server:
                 f": {password2check}" if self.report_invalid_password else "",
             )
             start_response(STATUS_UNAUTHORIZED, [("Content-type", "text/html")])
-            return self.pages.login(wrongpass=True, insecure=environ["REQUEST_SCHEME"] == "http")
+            return [self.pages.login(foris_language(), wrongpass=True, insecure=environ["REQUEST_SCHEME"] == "http")]
 
         httpcookie = cookie.generate(secure=environ["REQUEST_SCHEME"] == "https")
         start_response(

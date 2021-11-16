@@ -81,3 +81,20 @@ password:: This is hash of password
 config auth 'admin'
 	option password '$p5k2$3e8$0rDNDvAY$kymkJgP.A3JR69dEHAr7EDPnsybVqxeW'
 ----
+
+== Localization
+
+Strings in this project can be translated on
+[Weblate](https://hosted.weblate.org/projects/turris/turris-auth/).
+
+To pull latest changes the maintainers have to do:
+
+----
+git remote add weblate https://hosted.weblate.org/git/turris/turris-auth/
+git fetch weblate
+git merge weblate/master
+----
+
+[WARNING]
+  The content should be always checked to see if there are not possible
+  injection attempts.
