@@ -9,35 +9,38 @@ msgstr ""
 "Project-Id-Version: turris-auth 0.2.0\n"
 "Report-Msgid-Bugs-To: packaging@turris.cz\n"
 "POT-Creation-Date: 2021-11-16 13:05+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2021-11-19 23:51+0000\n"
+"Last-Translator: Atec <dr.atec@gmail.com>\n"
+"Language-Team: Slovak <https://hosted.weblate.org/projects/turris/"
+"turris-auth/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 4.9.1\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: turris_auth/server/templates/login.html.j2:23
 msgid "Login"
-msgstr ""
+msgstr "Prihlásenie"
 
 #: turris_auth/server/templates/login.html.j2:32
 msgid "Wrong password."
-msgstr ""
+msgstr "Nesprávne heslo."
 
 #: turris_auth/server/templates/login.html.j2:35
 #: turris_auth/server/templates/login.html.j2:36
 msgid "Password"
-msgstr ""
+msgstr "Heslo"
 
 #: turris_auth/server/templates/login.html.j2:37
 msgid "Log in"
-msgstr ""
+msgstr "Prihlásenie"
 
 #: turris_auth/server/templates/login.html.j2:44
 msgid "You are connected over insecure protocol!"
-msgstr ""
+msgstr "Ste pripojení cez nezabezpečený protokol!"
 
 #: turris_auth/server/templates/login.html.j2:45
 msgid ""
@@ -45,3 +48,6 @@ msgid ""
 "thus to router's configuration. We highly suggest that you use secure "
 "connection to login to router's web services."
 msgstr ""
+"Toto môže byť zneužité útočníkom na získanie prístupu k vášmu heslu a tým aj "
+"k nastaveniam routera. Dôrazne odporúčame, aby ste na prihlasovanie do "
+"webových služieb routera použili zabezpečené pripojenie."
