@@ -3,7 +3,7 @@ CZ.NIC z.s.p.o. <packaging@turris.cz>
 v0.0, 2021-08-15
 :icons:
 
-This implements simple login gateway for Turris web interface. It can be easily
+This implements a simple login gateway for Turris web interface. It can be easily
 applied to any website and that way protects any web application running on the
 router.
 
@@ -17,7 +17,7 @@ router.
 
 == Installation
 
-The installaction can be performed as you are used to install any other Python
+The installation can be performed as you are used to installing any other Python
 packages from sources. For example with pip you can run following command in the
 project directory:
 
@@ -51,11 +51,11 @@ $HTTP["url"] =~ "^/netdata" {
 ====
 Some web applications configure their index page to be cached. The effect is
 that once accessed the core web page is not requested again and is instead
-served from cache. This creates issue if user logouts or if login timeouts. The
-user is simply never redirected to login page. The solution is to always force
-revalidation. The revalidation makes use of cache but only if response is valid
-so network traffic is somewhat saved. To force revalidation you can add the
-line:
+served from cache. This creates an issue, if user logouts or if login timeouts.
+The user is simply never redirected to login page. The solution is to always
+force revalidation. The revalidation makes use of cache but only if response
+is valid so network traffic is somewhat saved. To force revalidation you can
+add the line:
 
 ----
 setenv.add-response-header = ("Cache-Control" => "must-revalidate, proxy-revalidate, max-age=0")
@@ -65,9 +65,9 @@ setenv.add-response-header = ("Cache-Control" => "must-revalidate, proxy-revalid
 == Configuration
 
 [WARNING]
-  The configuration is performed trough UCI. The passwords should not be stored
+  The configuration is performed through UCI. The passwords should not be stored
   in the plain form they are stored hashed and producing the correct value is
-  not direct. Because of that we provide simple tool `set-turris-auth`. You
+  not direct. Because of that, we provide simple tool `set-turris-auth`. You
   should use that to set or change password instead (unless you know what you
   are doing).
 
@@ -85,9 +85,9 @@ config auth 'admin'
 == Localization
 
 Strings in this project can be translated on
-[Weblate](https://hosted.weblate.org/projects/turris/turris-auth/).
+https://hosted.weblate.org/projects/turris/turris-auth/[Weblate].
 
-To pull latest changes the maintainers have to do:
+To pull the latest changes the maintainers have to do:
 
 ----
 git remote add weblate https://hosted.weblate.org/git/turris/turris-auth/
