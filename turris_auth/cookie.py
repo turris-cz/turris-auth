@@ -16,7 +16,7 @@ import typing
 
 KEY = "turrisauth"
 TRUSTFILE = pathlib.Path("/var/run/turris-auth.trust")
-TIMEOUT = 36000
+TIMEOUT = 600
 LENGTH = 64
 
 
