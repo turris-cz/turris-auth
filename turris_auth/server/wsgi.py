@@ -71,10 +71,21 @@ class Server:
                 start_response(STATUS_UNAUTHORIZED, [])
         return []
 
+    @staticmethod
+    def _login_new_session(environ, start_response):
+        httpcookie = cookie.generate(secure=environ["REQUEST_SCHEME"] == "https")
+        start_response(
+            STATUS_FOUND,
+            [("Location", environ.get("QUERY_STRING") or "/"), ("Set-Cookie", httpcookie.output(header=""))],
+        )
+        return []
+
     def _login(self, environ, start_response):
         if cookie.verify(environ.get("HTTP_COOKIE")):
             start_response(STATUS_FOUND, [("Location", environ.get("QUERY_STRING") or "/")])
             return []
+        if not password.is_set():
+            return self._login_new_session(environ, start_response)
         # We allow here any origin as we are attempting redirect to https which is cross-site
         start_response(STATUS_OK, [("Content-type", "text/html"), ("Access-Control-Allow-Origin", "*")])
         return [self.pages.login(foris_language(), insecure=environ["REQUEST_SCHEME"] == "http")]
@@ -89,17 +100,11 @@ class Server:
                 f": {password2check}" if self.report_invalid_password else "",
             )
             start_response(STATUS_UNAUTHORIZED, [("Content-type", "text/html")])
-            return [self.pages.login(foris_language(), wrongpass=True, insecure=environ["REQUEST_SCHEME"] == "http")]
+            return [
+                self.pages.login(foris_language() or "en", wrongpass=True, insecure=environ["REQUEST_SCHEME"] == "http")
+            ]
 
-        httpcookie = cookie.generate(secure=environ["REQUEST_SCHEME"] == "https")
-        start_response(
-            STATUS_FOUND,
-            [
-                ("Location", environ.get("QUERY_STRING") or "/"),
-                ("Set-Cookie", httpcookie.output(header="")),
-            ],
-        )
-        return []
+        return self._login_new_session(environ, start_response)
 
     @staticmethod
     def _logout(environ, start_response):

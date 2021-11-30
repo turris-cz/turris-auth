@@ -14,12 +14,22 @@ def assign(password: str) -> None:
         uci.set("turris-auth", "admin", "password", new_password_hash)
 
 
-def verify(password: str) -> bool:
-    """Verify password."""
+def _password_hash() -> str:
     uci = euci.EUci()
     password_hash = uci.get("turris-auth", "admin", "password", default="")
     if not password_hash:
         # We check previous Foris password as well for backward compatibility
         password_hash = uci.get("foris", "auth", "password", default="")
+    return password_hash
+
+
+def is_set() -> bool:
+    """Check if password is set."""
+    return bool(_password_hash())
+
+
+def verify(password: str) -> bool:
+    """Verify password."""
+    password_hash = _password_hash()
     # Note: no password means no login is required.
-    return not password_hash or password_hash == pbkdf2.crypt(password.encode(), salt=password_hash)
+    return bool(password_hash) and password_hash == pbkdf2.crypt(password.encode(), salt=password_hash)
