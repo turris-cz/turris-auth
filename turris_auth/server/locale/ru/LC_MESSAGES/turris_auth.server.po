@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: turris-auth 0.2.0\n"
 "Report-Msgid-Bugs-To: packaging@turris.cz\n"
-"POT-Creation-Date: 2021-12-06 10:46+0100\n"
+"POT-Creation-Date: 2021-12-06 14:17+0100\n"
 "PO-Revision-Date: 2021-12-01 02:12+0000\n"
 "Last-Translator: Алексей Леньшин <alenshin@gmail.com>\n"
 "Language: ru\n"
@@ -43,13 +43,24 @@ msgid "You are connected over insecure protocol!"
 msgstr "Вы подключены по небезопасному протоколу!"
 
 #: turris_auth/server/templates/login.html.j2:52
+#, fuzzy
 msgid ""
 "This can be exploited by attackers to gain access to your password and "
 "thus to router's configuration. We highly suggest that you use secure "
-"connection to login to router's web services."
+"connection to login to router's web services. You can find more info in "
+"our "
 msgstr ""
 "Это может использоваться злоумышленниками для получения доступа к вашему "
 "паролю и, следовательно, к конфигурации маршрутизатора. Мы настоятельно "
 "рекомендуем вам использовать безопасное соединение для входа в веб-службы"
 " маршрутизатора."
+
+#: turris_auth/server/templates/login.html.j2:53
+msgid "online documentation"
+msgstr ""
+
+#: turris_auth/server/templates/login.html.j2:54
+#, fuzzy
+msgid "Click here to redirect to secure protocol."
+msgstr "Вы подключены по небезопасному протоколу!"
 
