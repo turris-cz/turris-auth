@@ -1,5 +1,5 @@
 # Translations template for turris-auth.
-# Copyright (C) 2021 CZ.NIC
+# Copyright (C) 2021 CZ.NIC z.s.p.o
 # This file is distributed under the same license as the turris-auth
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: turris-auth 0.2.0\n"
 "Report-Msgid-Bugs-To: packaging@turris.cz\n"
-"POT-Creation-Date: 2021-11-16 13:05+0100\n"
+"POT-Creation-Date: 2021-12-06 10:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,28 +18,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: turris_auth/server/templates/login.html.j2:23
+#: turris_auth/server/templates/login.html.j2:26
 msgid "Login"
 msgstr ""
 
-#: turris_auth/server/templates/login.html.j2:32
+#: turris_auth/server/templates/login.html.j2:39
 msgid "Wrong password."
 msgstr ""
 
-#: turris_auth/server/templates/login.html.j2:35
-#: turris_auth/server/templates/login.html.j2:36
+#: turris_auth/server/templates/login.html.j2:42
+#: turris_auth/server/templates/login.html.j2:43
 msgid "Password"
 msgstr ""
 
-#: turris_auth/server/templates/login.html.j2:37
+#: turris_auth/server/templates/login.html.j2:44
 msgid "Log in"
 msgstr ""
 
-#: turris_auth/server/templates/login.html.j2:44
+#: turris_auth/server/templates/login.html.j2:51
 msgid "You are connected over insecure protocol!"
 msgstr ""
 
-#: turris_auth/server/templates/login.html.j2:45
+#: turris_auth/server/templates/login.html.j2:52
 msgid ""
 "This can be exploited by attackers to gain access to your password and "
 "thus to router's configuration. We highly suggest that you use secure "

@@ -8,9 +8,6 @@ Copyright 2021, CZ.NIC z.s.p.o. (http://www.nic.cz/)
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="shortcut icon" href="/turris-auth/favicon.ico">
-	<link rel="stylesheet" href="/turris-auth/bootstrap.min.css">
-	<link rel="stylesheet" href="/turris-auth/custom.css">
 	<script type="text/javascript">
 		if (location.protocol !== 'https:') {
 			let href_ssl = location.href.replace("http://", "https://");
@@ -20,27 +17,37 @@ Copyright 2021, CZ.NIC z.s.p.o. (http://www.nic.cz/)
 			}).catch(error => {});
 		}
 	</script>
+	<link rel="shortcut icon" id="light-scheme-icon" href="/turris-theme/favicon-black.png">
+	<link rel="icon" id="dark-scheme-icon" href="/turris-theme/favicon-white.png">
+	<link rel="stylesheet" id="css-dark" href="/turris-theme/darkly-5.min.css" media="(prefers-color-scheme: dark)">
+	<link rel="stylesheet" id="css-light" href="/turris-theme/flatly-5.min.css" media="(prefers-color-scheme: light)">
+	<link rel="stylesheet" href="/turris-auth/custom.css">
+	<script src="/turris-theme/darkmode_head.js"></script>
 	<title>{% trans %}Login{% endtrans %} - Turris</title>
 </head>
-<body id="login-body" class="text-center" data-new-gr-c-s-check-loaded="8.881.0" data-gr-ext-installed="">
+<body id="login-body" class="align-middle text-center d-flex align-items-center min-vh-100">
 	<div class="container-sm">
 
-		<form method="POST" class="form-login">
-			<img class="mb-3" src="/turris-auth/logo.svg" alt="Turris Logo" width="280">
+		<form method="POST" class="form-login d-grid">
+			<picture>
+				<source name="dark" srcset="/turris-theme/logo-white.svg" media="(prefers-color-scheme: dark)">
+				<source name="light" srcset="/turris-theme/logo-black.svg" media="(prefers-color-scheme: light)">
+				<img class="mb-3" name="img" src="/turris-theme/logo-black.svg" alt="Turris Logo" width="280">
+			</picture>
 {% if wrongpass %}
 			<div class="alert alert-danger wrong-password-danger">
 				<span>{% trans %}Wrong password.{% endtrans %}</span>
 			</div>
 {% endif %}
-			<label for="inputPassword" class="sr-only">{% trans %}Password{% endtrans %}</label>
+			<label for="inputPassword" class="visually-hidden">{% trans %}Password{% endtrans %}</label>
 			<input type="password" id="inputPassword" class="form-control" placeholder="{% trans %}Password{% endtrans %}" autocomplete="current-password" name="password" autofocus="" required="">
-			<button class="btn btn-primary btn-block mb-3" type="submit">{% trans %}Log in{% endtrans %}</button>
+			<button class="btn btn-primary mb-3" type="submit">{% trans %}Log in{% endtrans %}</button>
 		</form>
 
 {% if insecure %}
 		<div class="row alert alert-warning http-warning align-items-center">
 			<img class="mb-3 col-auto" src="/turris-auth/broken-padlock.svg" alt="Broken padlock" height="120">
-			<div class="col text-left">
+			<div class="col text-start">
 				<p>{% trans %}You are connected over insecure protocol!{% endtrans %}</p>
 				<p>{% trans %}This can be exploited by attackers to gain access to your password and thus to router's configuration. We highly suggest that you use secure connection to login to router's web services.{% endtrans %}</p>
 			</div>
@@ -48,5 +55,6 @@ Copyright 2021, CZ.NIC z.s.p.o. (http://www.nic.cz/)
 {% endif %}
 
 	</div>
+	<script async src="/turris-theme/darkmode_body.js"></script>
 </body>
 </html>
