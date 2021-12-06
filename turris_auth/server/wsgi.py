@@ -101,7 +101,7 @@ class Server:
             )
             start_response(STATUS_UNAUTHORIZED, [("Content-type", "text/html")])
             return [
-                self.pages.login(foris_language() or "en", wrongpass=True, insecure=environ["REQUEST_SCHEME"] == "http")
+                self.pages.login(foris_language(), wrongpass=True, insecure=environ["REQUEST_SCHEME"] == "http")
             ]
 
         return self._login_new_session(environ, start_response)

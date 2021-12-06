@@ -33,7 +33,7 @@ class Pages:
     def login(self, lang: typing.Optional[str], wrongpass: bool = False, insecure: bool = True) -> bytes:
         """Login page for entering password and other login information for authentication."""
         self._lang(lang)
-        return self._login.render(lang=lang or "en", wrongpass=wrongpass, insecure=insecure).encode()
+        return self._login.render(lang=lang, wrongpass=wrongpass, insecure=insecure).encode()
 
     def _lang(self, lang):
         if lang not in self.translations:
