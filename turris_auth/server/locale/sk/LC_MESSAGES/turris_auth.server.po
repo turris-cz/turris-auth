@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: turris-auth 0.2.0\n"
 "Report-Msgid-Bugs-To: packaging@turris.cz\n"
 "POT-Creation-Date: 2021-12-06 14:17+0100\n"
-"PO-Revision-Date: 2021-12-01 13:56+0000\n"
+"PO-Revision-Date: 2022-01-25 11:52+0000\n"
 "Last-Translator: Atec <dr.atec@gmail.com>\n"
+"Language-Team: Slovak <https://hosted.weblate.org/projects/turris/"
+"turris-auth/sk/>\n"
 "Language: sk\n"
-"Language-Team: Slovak <https://hosted.weblate.org/projects/turris/turris-"
-"auth/sk/>\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 4.11-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: turris_auth/server/templates/login.html.j2:26
@@ -42,23 +43,20 @@ msgid "You are connected over insecure protocol!"
 msgstr "Ste pripojení cez nezabezpečený protokol!"
 
 #: turris_auth/server/templates/login.html.j2:52
-#, fuzzy
 msgid ""
 "This can be exploited by attackers to gain access to your password and "
 "thus to router's configuration. We highly suggest that you use secure "
 "connection to login to router's web services. You can find more info in "
 "our "
 msgstr ""
-"Môže to zneužiť útočník na získanie prístupu k vášmu heslu a tým aj k "
+"Toto môže zneužiť útočník na získanie prístupu k vášmu heslu a tým aj k "
 "nastaveniam routera. Dôrazne odporúčame, aby ste na prihlasovanie do "
-"webových služieb routera použili zabezpečené pripojenie."
+"webových služieb routera použili zabezpečené pripojenie. "
 
 #: turris_auth/server/templates/login.html.j2:53
 msgid "online documentation"
-msgstr ""
+msgstr "online dokumentácia"
 
 #: turris_auth/server/templates/login.html.j2:54
-#, fuzzy
 msgid "Click here to redirect to secure protocol."
-msgstr "Ste pripojení cez nezabezpečený protokol!"
-
+msgstr "Ste pripojení cez nezabezpečený protokol."
