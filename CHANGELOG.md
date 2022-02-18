@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- argument `--luci-login` that enables login not only to Turris Authenticator
+  but also to LuCI in one go
+
+
 ## [0.3.1] - 2022-02-16
 ### Changed
 - updated translations

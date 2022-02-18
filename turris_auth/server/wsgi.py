@@ -29,8 +29,9 @@ STATUS_SERVER_ERROR = f"{http.HTTPStatus.INTERNAL_SERVER_ERROR.value} {http.HTTP
 class Server:
     """The turris-auth fast CGI server implementation."""
 
-    def __init__(self, report_invalid_password: bool = False):
+    def __init__(self, report_invalid_password: bool = False, luci_login: bool = False):
         self.report_invalid_password = report_invalid_password
+        self.luci_login = luci_login
         self.wsgi = flup.server.fcgi.WSGIServer(
             self._main, roles=(flup.server.fcgi_base.FCGI_RESPONDER, flup.server.fcgi_base.FCGI_AUTHORIZER)
         )
@@ -62,7 +63,7 @@ class Server:
                 return [cgitb.html(sys.exc_info())]
 
         # Authorizer
-        if cookie.verify(environ.get("HTTP_COOKIE")):
+        if cookie.verify(environ.get("HTTP_COOKIE"), self.luci_login):
             start_response(STATUS_OK, [])
         else:
             if (environ.get("HTTP_X_REQUESTED_WITH") or "") == "":
@@ -71,17 +72,20 @@ class Server:
                 start_response(STATUS_UNAUTHORIZED, [])
         return []
 
-    @staticmethod
-    def _login_new_session(environ, start_response):
-        httpcookie = cookie.generate(secure=environ["REQUEST_SCHEME"] == "https")
+    def _login_new_session(self, environ, start_response):
+        httpcookie = cookie.generate(
+            secure=environ["REQUEST_SCHEME"] == "https",
+            luci_login=self.luci_login
+        )
+        cookies = [("Set-Cookie", e.output(header="").strip()) for e in httpcookie.values()]
         start_response(
             STATUS_FOUND,
-            [("Location", environ.get("QUERY_STRING") or "/"), ("Set-Cookie", httpcookie.output(header=""))],
+            [("Location", environ.get("QUERY_STRING") or "/")] + cookies,
         )
         return []
 
     def _login(self, environ, start_response):
-        if cookie.verify(environ.get("HTTP_COOKIE")):
+        if cookie.verify(environ.get("HTTP_COOKIE"), self.luci_login):
             start_response(STATUS_FOUND, [("Location", environ.get("QUERY_STRING") or "/")])
             return []
         if not password.is_set():
@@ -106,9 +110,8 @@ class Server:
 
         return self._login_new_session(environ, start_response)
 
-    @staticmethod
-    def _logout(environ, start_response):
-        httpcookie = cookie.remove(environ.get("HTTP_COOKIE"))
+    def _logout(self, environ, start_response):
+        httpcookie = cookie.remove(environ.get("HTTP_COOKIE"), self.luci_login)
         start_response(STATUS_FOUND, [("Location", "/"), ("Set-Cookie:", httpcookie.output(header=""))])
         return []
 

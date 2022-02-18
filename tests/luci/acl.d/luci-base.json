@@ -1,0 +1,36 @@
+{
+	"uci-access": {
+		"description": "Grant uci write access to all configurations",
+		"read": {
+			"uci": [ "*" ]
+		},
+		"write": {
+			"uci": [ "*" ]
+		}
+	},
+	"luci-access": {
+		"description": "Grant access to basic LuCI procedures",
+		"read": {
+			"file": {
+				"/": [ "list" ],
+				"/etc/crontabs/root": [ "read" ]
+			},
+			"ubus": {
+				"file": [ "list", "read", "stat" ],
+				"uci": [ "changes", "get" ]
+			},
+			"uci": [ "*" ]
+		},
+		"write": {
+			"file": {
+				"/bin/kill": [ "exec" ],
+				"/etc/crontabs/root": [ "write" ]
+			},
+			"ubus": {
+				"file": [ "write", "remove", "exec" ],
+				"uci": [ "add", "apply", "confirm", "delete", "order", "set", "rename" ]
+			},
+			"uci": [ "*" ]
+		}
+	}
+}

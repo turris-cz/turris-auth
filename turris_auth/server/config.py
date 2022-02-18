@@ -9,10 +9,11 @@ import shutil
 RESOURCES = pathlib.Path(__file__).parent / "resources"
 
 
-def _server(authorizer: bool) -> str:
+def _server(authorizer: bool, luci_login: bool) -> str:
     return f"""(
     "socket" => "/tmp/fastcgi.turris_auth.socket",
     "bin-path" => "{shutil.which('turris-auth-server')}",
+    "bin-environment" => ( "TURRIS_AUTH_LUCI" => "{luci_login}" ),
     "check-local" => "disable",
     "min-procs" => 0,
     "max-procs" => 1,
@@ -21,12 +22,12 @@ def _server(authorizer: bool) -> str:
 )"""
 
 
-def config() -> str:
+def config(luci_login: bool) -> str:
     """Returns string with desired Lighttpd configuration."""
     return f"""# Automatically generated configuration for turris-auth.
 var.turris_auth_scriptname = "turris-auth"
-var.turris_auth = {_server(True)}
-var.turris_auth_responder = ( turris_auth_scriptname => {_server(False)})
+var.turris_auth = {_server(True, luci_login)}
+var.turris_auth_responder = ( turris_auth_scriptname => {_server(False, luci_login)})
 
 alias.url += (
     "/turris-auth" => "{RESOURCES}"

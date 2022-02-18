@@ -14,7 +14,10 @@ import sys
 import time
 import typing
 
+from . import luci
+
 KEY = "turrisauth"
+LUCI_KEY = "sysauth"
 TRUSTFILE = pathlib.Path("/var/run/turris-auth.trust")
 TIMEOUT = 600
 LENGTH = 64
@@ -54,7 +57,7 @@ def trustlist(readonly: bool = False) -> dict[str, int]:
         yield {}
 
 
-def generate(secure: bool) -> http.cookies.SimpleCookie:
+def generate(secure: bool, luci_login: bool) -> http.cookies.SimpleCookie:
     """Generates a new cookie.
     To correctly configure cookie the information if secure connection is used or not is required to be provided.
     Returns instance of http.cookies.SimpleCookie.
@@ -69,16 +72,24 @@ def generate(secure: bool) -> http.cookies.SimpleCookie:
         httpcookie[KEY]["secure"] = "true"
     else:
         httpcookie[KEY]["httponly"] = "true"
-    if sys.version_info[0] >= 3 and sys.version_info[1] >= 8:  # TODO drop when Python 3.8 becomes a baseline
+
+    # TODO drop when Python 3.8 becomes a baseline
+    if sys.version_info[0] >= 3 and sys.version_info[1] >= 8:
         httpcookie[KEY]["samesite"] = "Strict"
+
+    # set luci key
+    if luci_login:
+        httpcookie[LUCI_KEY] = luci.create_session(60 * 15)
+
     return httpcookie
 
 
-def remove(cookies: str) -> http.cookies.SimpleCookie:
+def remove(cookies: str, luci_login: bool) -> http.cookies.SimpleCookie:
     """Removes cookie (not fails if cookie is invalid).
     Removes instance of http.cookie.SimpleCookie that can be send to client to remove existing cookie from storage.
     """
     cookie = http.cookies.SimpleCookie(cookies).get(KEY)
+    luci_cookie = http.cookies.SimpleCookie(cookies).get(LUCI_KEY)
     if cookie is not None:
         with trustlist() as trust:
             if cookie.value in trust:
@@ -87,17 +98,34 @@ def remove(cookies: str) -> http.cookies.SimpleCookie:
     httpcookie = http.cookies.SimpleCookie()
     httpcookie[KEY] = ""
     httpcookie[KEY]["expires"] = "Thu, 01 Jan 1970 00:00:00 GMT"
+
+    with open("/tmp/remove", 'w') as f:
+        f.write(f"{luci_login} {httpcookie}")
+
+    if luci_login:
+        if luci_cookie is not None:
+            luci.destroy_session(luci_cookie.value)
+            httpcookie[LUCI_KEY] = ""
+            httpcookie[LUCI_KEY]["expires"] = "Thu, 01 Jan 1970 00:00:00 GMT"
+
     return httpcookie
 
 
-def verify(cookies: str) -> bool:
+def verify(cookies: str, luci_login: bool) -> bool:
     """Verify the cookie against list of trusted ones."""
     cookie = http.cookies.SimpleCookie(cookies).get(KEY)
     if cookie is not None:
         with trustlist() as trust:
             if cookie.value in trust:
                 trust[cookie.value] = int(time.time())
+
+                if luci_login:
+                    luci_cookie = http.cookies.SimpleCookie(cookies).get(LUCI_KEY)
+                    if luci_cookie:
+                        luci.touch_session(luci_cookie)
+
                 return True
+
     return False
 
 

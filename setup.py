@@ -43,9 +43,15 @@ setup(
         "flup",
         "pyuci @ git+https://gitlab.nic.cz/turris/pyuci.git",
     ],
+    tests_require=[
+        "pytest",
+    ],
     setup_requires=[
         "babel",
         "jinja2",
     ],
+    extras_require={
+        "luci": ["ubus"],
+    },
     cmdclass={"install": InstallWithCompiledMessages},
 )

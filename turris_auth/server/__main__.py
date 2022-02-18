@@ -3,7 +3,10 @@
 import argparse
 import logging
 import logging.handlers
+import os
 import sys
+
+from distutils.util import strtobool
 
 from . import Server
 from .config import config
@@ -17,16 +20,21 @@ def main():
     parser.add_argument(
         "--report-passwords", action="store_true", help="Report invalid passwords in plain text in logs"
     )
+    parser.add_argument(
+        "--luci-login",
+        action="store_true",
+        default=bool(strtobool(os.environ.get("TURRIS_AUTH_LUCI", "false"))),
+    )
     args = parser.parse_args()
 
     if args.lighttpd_config:
-        print(config())
+        print(config(args.luci_login))
         sys.exit(0)
 
     toplogger = logging.getLogger()
     toplogger.addHandler(logging.handlers.SysLogHandler("/dev/log"))
     toplogger.setLevel(logging.INFO)
-    sys.exit(Server(args.report_passwords).run())
+    sys.exit(Server(args.report_passwords, args.luci_login).run())
 
 
 if __name__ == "__main__":
