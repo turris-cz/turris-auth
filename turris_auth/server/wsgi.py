@@ -112,7 +112,11 @@ class Server:
 
     def _logout(self, environ, start_response):
         httpcookie = cookie.remove(environ.get("HTTP_COOKIE"), self.luci_login)
-        start_response(STATUS_FOUND, [("Location", "/"), ("Set-Cookie:", httpcookie.output(header=""))])
+        cookies = [("Set-Cookie", e.output(header="").strip()) for e in httpcookie.values()]
+        start_response(
+            STATUS_FOUND, 
+            [("Location", "/")] + cookies,
+        )
         return []
 
     @staticmethod
