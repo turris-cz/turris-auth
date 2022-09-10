@@ -9,35 +9,38 @@ msgstr ""
 "Project-Id-Version: turris-auth 0.2.0\n"
 "Report-Msgid-Bugs-To: packaging@turris.cz\n"
 "POT-Creation-Date: 2021-12-06 14:17+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-09-11 15:23+0000\n"
+"Last-Translator: Dan Cybersec <dan.cybersec@protonmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/turris/"
+"turris-auth/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: turris_auth/server/templates/login.html.j2:26
 msgid "Login"
-msgstr ""
+msgstr "Iniciar sesión"
 
 #: turris_auth/server/templates/login.html.j2:39
 msgid "Wrong password."
-msgstr ""
+msgstr "Contraseña incorrecta."
 
 #: turris_auth/server/templates/login.html.j2:42
 #: turris_auth/server/templates/login.html.j2:43
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
 #: turris_auth/server/templates/login.html.j2:44
 msgid "Log in"
-msgstr ""
+msgstr "Iniciar sesión"
 
 #: turris_auth/server/templates/login.html.j2:51
 msgid "You are connected over insecure protocol!"
-msgstr ""
+msgstr "¡Estás conectado usando un protocolo inseguro!"
 
 #: turris_auth/server/templates/login.html.j2:52
 msgid ""
@@ -46,11 +49,15 @@ msgid ""
 "connection to login to router's web services. You can find more info in "
 "our "
 msgstr ""
+"Esto puede ser explotado por atacantes para ganar acceso con tu contraseña, "
+"y por lo tanto, a la configuración de tu router. Te aconsejamos "
+"encarecidamente que uses una conexión segura para iniciar sesión en los "
+"servicios web del router. Puedes encontrar más información en nuestra "
 
 #: turris_auth/server/templates/login.html.j2:53
 msgid "online documentation"
-msgstr ""
+msgstr "documentación en línea"
 
 #: turris_auth/server/templates/login.html.j2:54
 msgid "Click here to redirect to secure protocol."
-msgstr ""
+msgstr "Pulsa aquí para ser redirigido usando un protocolo seguro."
