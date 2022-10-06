@@ -14,7 +14,7 @@ class InstallWithCompiledMessages(install):
 
 setup(
     name="turris-auth",
-    version="0.4.1",
+    version="0.4.2",
     description="Turris Authenticator for web applications",
     url="https://gitlab.nic.cz/turris/turris-auth",
     author="CZ.NIC, z. s. p. o.",
