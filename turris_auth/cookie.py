@@ -74,9 +74,7 @@ def generate(secure: bool, luci_login: bool) -> http.cookies.SimpleCookie:
     else:
         httpcookie[KEY]["httponly"] = "true"
 
-    # TODO drop when Python 3.8 becomes a baseline
-    if sys.version_info[0] >= 3 and sys.version_info[1] >= 8:
-        httpcookie[KEY]["samesite"] = "Strict"
+    httpcookie[KEY]["samesite"] = "Strict"
 
     # set luci key
     if luci_login:

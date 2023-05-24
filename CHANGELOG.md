@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4.3] - 2023-05-24
 ### Changed
 - change the name of LuCI cookies to adapt to the latest version of LuCI in TOS 7.0
+- cookie: Drop compatibility for the 'samesite' cookie attribute for Python 3.7 and older.
 
 
 ## [0.4.2] - 2022-10-06
