@@ -17,7 +17,8 @@ import typing
 from . import luci
 
 KEY = "turrisauth"
-LUCI_KEY = "sysauth"
+LUCI_KEY = "sysauth_http"
+LUCI_SECURE_KEY = "sysauth_https"
 TRUSTFILE = pathlib.Path("/var/run/turris-auth.trust")
 TIMEOUT = 600
 LENGTH = 64
@@ -79,7 +80,10 @@ def generate(secure: bool, luci_login: bool) -> http.cookies.SimpleCookie:
 
     # set luci key
     if luci_login:
-        httpcookie[LUCI_KEY] = luci.create_session(60 * 15)
+        if secure:
+            httpcookie[LUCI_SECURE_KEY] = luci.create_session(60 * 15)
+        else:
+            httpcookie[LUCI_KEY] = luci.create_session(60 * 15)
 
     return httpcookie
 
@@ -90,6 +94,7 @@ def remove(cookies: str, luci_login: bool) -> http.cookies.SimpleCookie:
     """
     cookie = http.cookies.SimpleCookie(cookies).get(KEY)
     luci_cookie = http.cookies.SimpleCookie(cookies).get(LUCI_KEY)
+    luci_secure_cookie = http.cookies.SimpleCookie(cookies).get(LUCI_SECURE_KEY)
     if cookie is not None:
         with trustlist() as trust:
             if cookie.value in trust:
@@ -107,6 +112,10 @@ def remove(cookies: str, luci_login: bool) -> http.cookies.SimpleCookie:
             luci.destroy_session(luci_cookie.value)
             httpcookie[LUCI_KEY] = ""
             httpcookie[LUCI_KEY]["expires"] = "Thu, 01 Jan 1970 00:00:00 GMT"
+        if luci_secure_cookie is not None:
+            luci.destroy_session(luci_secure_cookie.value)
+            httpcookie[LUCI_SECURE_KEY] = ""
+            httpcookie[LUCI_SECURE_KEY]["expires"] = "Thu, 01 Jan 1970 00:00:00 GMT"
 
     return httpcookie
 
@@ -121,6 +130,9 @@ def verify(cookies: str, luci_login: bool) -> bool:
 
                 if luci_login:
                     luci_cookie = http.cookies.SimpleCookie(cookies).get(LUCI_KEY)
+                    if luci_cookie:
+                        luci.touch_session(luci_cookie)
+                    luci_cookie = http.cookies.SimpleCookie(cookies).get(LUCI_SECURE_KEY)
                     if luci_cookie:
                         luci.touch_session(luci_cookie)
 
