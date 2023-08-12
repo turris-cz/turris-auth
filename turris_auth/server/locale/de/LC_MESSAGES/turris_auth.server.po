@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: turris-auth 0.2.0\n"
 "Report-Msgid-Bugs-To: packaging@turris.cz\n"
 "POT-Creation-Date: 2021-12-06 14:17+0100\n"
-"PO-Revision-Date: 2022-09-30 09:17+0000\n"
-"Last-Translator: Marcus Wellendorf <wellendorf@posteo.de>\n"
+"PO-Revision-Date: 2023-08-13 09:51+0000\n"
+"Last-Translator: Erik Pfannenstein <debianignatz@gmx.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/turris/"
 "turris-auth/de/>\n"
 "Language: de\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 5.0-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: turris_auth/server/templates/login.html.j2:26
@@ -36,7 +36,7 @@ msgstr "Passwort"
 
 #: turris_auth/server/templates/login.html.j2:44
 msgid "Log in"
-msgstr "Anmelden"
+msgstr "Anmeldung"
 
 #: turris_auth/server/templates/login.html.j2:51
 msgid "You are connected over insecure protocol!"
