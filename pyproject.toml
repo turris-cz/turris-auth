@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "turris-auth"
+version = "0.4.2"
+dynamic = []
+description = "Turris Authenticator for web applications"
+license = { "text" = "GPL-3.0" }
+authors = [
+    { name = "CZ.NIC, z. s. p. o.", email = "packaging@turris.cz" },
+]
+dependencies = [
+    "flup",
+    "jinja2",
+    "pbkdf2",
+    "pyuci",
+]
+
+[project.optional-dependencies]
+luci = [
+    "ubus",
+]
+tests = [
+    "pytest",
+    "pytest-cov",
+]
+
+[project.scripts]
+set-turris-auth = "turris_auth.__main__:main"
+turris-auth-server = "turris_auth.server.__main__:main"
+
+[project.urls]
+Homepage = "https://gitlab.nic.cz/turris/turris-auth"
+
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/turris_auth",
+]
+
+[tool.hatch.build.targets.wheel]
+exclude = [
+	"**/*.po",
+	"**/*.pot",
+]
+
+[tool.hatch.build.hooks.custom]
+path = "hatch_build.py"
+dependencies = [
+  "babel",
+]

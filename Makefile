@@ -46,18 +46,18 @@ $(1)_MO := $$(patsubst %.po,%.mo,$$($(1)_PO))
 extract: extract-$(1)
 extract-$(1): $$($(1)_POT)
 $$($(1)_POT): $$($(1)_SOURCES)
-	./setup.py extract_messages \
+	pybabel extract \
 		--mapping-file="$$($(1)_PATH)/locale/babel.cfg" \
 		--msgid-bugs-address="packaging@turris.cz" \
 		--copyright-holder="CZ.NIC z.s.p.o" \
 		--output-file="$$@" \
-		--input-paths "$$(subst $$(space),$$(comma),$$^)"
+		--input-dirs "$$(subst $$(space),$$(comma),$$^)"
 
 .PHONY: update-$(1)
 update: update-$(1)
 update-$(1): $$($(1)_PO)
 $$($(1)_PO): %.po: $$($(1)_POT)
-	./setup.py update_catalog \
+	pybabel update \
 		--domain "$(1)" \
 		--locale $$(shell sed -n 's/"Language: \([a-z]\+\).*/\1/p' "$$@") \
 		--input-file="$$<" \
@@ -67,7 +67,7 @@ $$($(1)_PO): %.po: $$($(1)_POT)
 all: $(1)
 $(1): $$($(1)_MO)
 $$($(1)_MO): %.mo: %.po
-	./setup.py compile_catalog \
+	pybabel compile \
 		--domain "$(1)" \
 		--input-file="$$<" \
 		--output-file="$$@"
