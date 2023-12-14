@@ -1,0 +1,21 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  CI_TOX_EXTRA: "--junitxml=report.xml --cov --cov-report=term --cov-report=xml --cov-append"
+
+stages:
+  - lint
+  - test
+  - build
+  - publish
+
+
+include:
+  - remote: "https://gitlab.nic.cz/turris/foris-controller/packages/-/raw/master/templates/python/base.yml"
+  - remote: "https://gitlab.nic.cz/turris/foris-controller/packages/-/raw/master/templates/python/linters.yml"
+  - remote: "https://gitlab.nic.cz/turris/foris-controller/packages/-/raw/master/templates/python/tox.yml"
+  - remote: "https://gitlab.nic.cz/turris/foris-controller/packages/-/raw/master/templates/python/build_and_publish.yml"
+
+
+lint::python::tox:
+  variables:
+    IMAGE: registry.nic.cz/turris/foris-ci/python3

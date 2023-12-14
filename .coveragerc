@@ -1,0 +1,9 @@
+[report]
+precision = 1
+show_missing = true
+skip_covered = true
+
+[run]
+source = turris_auth
+omit =
+  tests/*
