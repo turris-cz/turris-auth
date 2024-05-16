@@ -171,6 +171,9 @@ class Server:
         )
         start_response(
             STATUS_OK,
-            [("Content-type", "test/json"), ("Access-Control-Allow-Origin", "*")],
+            [
+                ("Content-type", "application/json"),
+                ("Access-Control-Allow-Origin", "*"),
+            ],
         )
         return [res]
