@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2024-05-29
+### Changed
+- add tests, lint and publishing for gitlab CI
+- migrate to hatchling instead of setuptools
+
+### Fixed
+- fix Content-type header to use application/json in wsgi.py
+
 ## [0.4.3] - 2023-05-24
 ### Changed
 - change the name of LuCI cookies to adapt to the latest version of LuCI in TOS 7.0
