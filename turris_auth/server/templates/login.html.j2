@@ -1,65 +1,217 @@
 {#
 SPDX-License-Identifier: GPL-3.0-or-later
-Copyright 2021, CZ.NIC z.s.p.o. (http://www.nic.cz/)
+Copyright 2021-2024, CZ.NIC z.s.p.o. (https://www.nic.cz/)
 #}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ lang or "en" }}">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<script type="text/javascript">
-		if (location.protocol !== 'https:') {
-			let href_ssl = location.href.replace("http://", "https://");
-			fetch(href_ssl).then(function(response) {
-				if (response.ok)
-					location.href = href_ssl;
-			}).catch(error => {});
-		}
-	</script>
-	<link rel="shortcut icon" id="light-scheme-icon" href="/turris-theme/favicon-black.png">
-	<link rel="icon" id="dark-scheme-icon" href="/turris-theme/favicon-white.png">
-	<link rel="stylesheet" id="css-dark" href="/turris-theme/darkly-5.min.css" media="(prefers-color-scheme: dark)">
-	<link rel="stylesheet" id="css-light" href="/turris-theme/flatly-5.min.css" media="(prefers-color-scheme: light)">
-	<link rel="stylesheet" href="/turris-auth/custom.css">
-	<script src="/turris-theme/darkmode_head.js"></script>
-	<title>{% trans %}Login{% endtrans %} - Turris</title>
-</head>
-<body id="login-body" class="align-middle text-center d-flex align-items-center min-vh-100">
-	<div class="container-sm">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script type="text/javascript">
+            if (location.protocol !== 'https:') {
+                var href_ssl = location.href.replace("http://", "https://");
+                fetch(href_ssl).then(function(response) {
+                    if (response.ok)
+                        location.replace(href_ssl);
+                }).catch(error => {});
+            }
+        </script>
+        <link rel="icon" type="image/png" id="light-scheme-favicon" href="" />
+        <link rel="icon" type="image/png" id="dark-scheme-favicon" href="" />
+        <script src="/turris-theme/color-modes.js"></script>
+        <link rel="stylesheet" href="/turris-theme/flatly-5.min.css">
+        <style>
+        .form-login {
+            max-width: 360px;
+            margin: 0 auto;
+        }
 
-		<form method="POST" class="form-login d-grid">
-			<picture>
-				<source name="dark" srcset="/turris-theme/logo-white.svg" media="(prefers-color-scheme: dark)">
-				<source name="light" srcset="/turris-theme/logo-black.svg" media="(prefers-color-scheme: light)">
-				<img class="mb-3" name="img" src="/turris-theme/logo-black.svg" alt="Turris Logo" width="280">
-			</picture>
-{% if wrongpass %}
-			<div class="alert alert-danger wrong-password-danger">
-				<span>{% trans %}Wrong password.{% endtrans %}</span>
-			</div>
-{% endif %}
-			<label for="inputPassword" class="visually-hidden">{% trans %}Password{% endtrans %}</label>
-			<input type="password" id="inputPassword" class="form-control" placeholder="{% trans %}Password{% endtrans %}" autocomplete="current-password" name="password" autofocus="" required="">
-			<button class="btn btn-primary mb-3" type="submit">{% trans %}Log in{% endtrans %}</button>
-		</form>
+        .http-warning {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        </style>
+        <title>{% trans %}Login{% endtrans %} | Turris</title>
+    </head>
+    <body class="bg-body-tertiary align-middle d-flex align-items-center min-vh-100">
+        {% include 'icons.svg' %}
+        <div
+            class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle"
+        >
+            <button
+                class="btn btn-primary py-2 dropdown-toggle d-flex align-items-center"
+                id="bd-theme"
+                type="button"
+                aria-expanded="false"
+                data-bs-toggle="dropdown"
+                aria-label="{% trans %}Toggle theme (auto){% endtrans %}"
+            >
+                <svg class="bi my-1 theme-icon-active" width="1em" height="1em">
+                    <use href="#circle-half"></use>
+                </svg>
+                <span class="visually-hidden" id="bd-theme-text">{% trans %}Toggle theme{% endtrans %}</span>
+            </button>
+            <ul
+                class="dropdown-menu dropdown-menu-end shadow"
+                aria-labelledby="bd-theme-text"
+            >
+                <li>
+                    <button
+                        type="button"
+                        class="dropdown-item d-flex align-items-center"
+                        data-bs-theme-value="light"
+                        aria-pressed="false"
+                    >
+                        <svg
+                            class="bi me-2 opacity-50"
+                            width="1em"
+                            height="1em"
+                        >
+                            <use href="#sun-fill"></use>
+                        </svg>
+                        {% trans %}Light{% endtrans %}
+                        <svg class="bi ms-auto d-none" width="1em" height="1em">
+                            <use href="#check2"></use>
+                        </svg>
+                    </button>
+                </li>
+                <li>
+                    <button
+                        type="button"
+                        class="dropdown-item d-flex align-items-center"
+                        data-bs-theme-value="dark"
+                        aria-pressed="false"
+                    >
+                        <svg
+                            class="bi me-2 opacity-50"
+                            width="1em"
+                            height="1em"
+                        >
+                            <use href="#moon-stars-fill"></use>
+                        </svg>
+                        {% trans %}Dark{% endtrans %}
+                        <svg class="bi ms-auto d-none" width="1em" height="1em">
+                            <use href="#check2"></use>
+                        </svg>
+                    </button>
+                </li>
+                <li>
+                    <button
+                        type="button"
+                        class="dropdown-item d-flex align-items-center active"
+                        data-bs-theme-value="auto"
+                        aria-pressed="true"
+                    >
+                        <svg
+                            class="bi me-2 opacity-50"
+                            width="1em"
+                            height="1em"
+                        >
+                            <use href="#circle-half"></use>
+                        </svg>
+                        {% trans %}Auto{% endtrans %}
+                        <svg class="bi ms-auto d-none" width="1em" height="1em">
+                            <use href="#check2"></use>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div class="container">
+            <form method="POST" class="form-login d-grid mb-4">
+                <img
+                    class="align-horizontally mb-3 img-logo-black"
+                    name="img"
+                    src="/turris-theme/logo-black.svg"
+                    alt="{% trans %}Turris Logo{% endtrans %}"
+                    width="280"
+                />
+				{% if wrongpass %}
+                <div class="alert alert-danger text-center">
+                    <span>{% trans %}Incorrect password. Please try again.{% endtrans %}</span>
+                </div>
+                <label for="inputPassword" class="visually-hidden"
+                    >{% trans %}Password{% endtrans %}</label
+                >
+				{% endif %}
+                <input
+                    type="password"
+                    id="inputPassword"
+                    class="form-control mb-3"
+                    placeholder="{% trans %}Password{% endtrans %}"
+                    autocomplete="current-password"
+                    name="password"
+                    autofocus=""
+                    required=""
+                />
+                <button class="btn btn-primary" type="submit">{% trans %}Log in{% endtrans %}</button>
+            </form>
+			{% if insecure %}
+            <div class="http-warning text-center p-3 text-warning-emphasis bg-warning-subtle border border-warning-subtle rounded-3" role="alert">
+                    <h5 class="alert-heading">
+                        <svg
+                            class="bi me-1"
+                            role="img"
+                            aria-label="{% trans %}Warning: You're using an insecure connection!{% endtrans %}"
+                            style="width: 1.25rem; height: 1.25rem;"
+                        >
+                            <use href="#warning-triangle"></use>
+                        </svg>
+                        {% trans %}Warning: You're using an insecure connection!{% endtrans %}
+                    </h5>
+                    <p class="mb-0">
+                        {% trans %}This can expose your password and router settings to attackers.{% endtrans %}
+                    </p>
+                    <p>{% trans %}Please switch to a secure connection for safety.{% endtrans %}</p>
+                    <button
+                        id="httpsRedirect"
+                        type="button"
+                        class="btn btn-primary btn-sm me-1"
+                    >
+                        {% trans %}Switch to HTTPS{% endtrans %}
+                    </button>
+                    <button
+                        id="learnMore"
+                        type="button"
+                        class="btn btn-outline-secondary btn-sm"
+                    >
+                        {% trans %}Learn more{% endtrans %}
+                        <sup>
+                            <svg class="bi fw-bold" width="0.6rem" height="0.6rem">
+                                <use href="#box-arrow-up-right"/>
+                            </svg>
+                        </sup>
+                    </button>
+            </div>
+            {% endif %}
+        </div>
+        <script type="module">
+            document.addEventListener("DOMContentLoaded", () => {
+                const learnMoreButton =
+                    document.querySelector("button#learnMore");
+                const httpsRedirectButton = document.querySelector(
+                    "button#httpsRedirect"
+                );
 
-{% if insecure %}
-		<div class="row alert alert-warning http-warning align-items-center">
-			<img class="mb-3 col-auto" src="/turris-auth/broken-padlock.svg" alt="Broken padlock" height="120">
-			<div class="col text-start">
-				<p>{% trans %}You are connected over insecure protocol!{% endtrans %}</p>
-				<p>{% trans %}This can be exploited by attackers to gain access to your password and thus to router's configuration. We highly suggest that you use secure connection to login to router's web services. You can find more info in our {% endtrans %}
-					<a href="https://docs.turris.cz/basics/reforis/https/https/" target="_blank">{% trans %}online documentation{% endtrans %}</a>.</p>
-				<a id="httpsRedirect">{% trans %}Click here to redirect to secure protocol.{% endtrans %}</a>
-				<script type="text/javascript">
-					document.querySelector("a#httpsRedirect").setAttribute("href", location.href.replace("http://", "https://"));
-				</script>
-			</div>
-		</div>
-{% endif %}
+                if (learnMoreButton) {
+                    learnMoreButton.addEventListener("click", () => {
+                        window.open(
+                            "https://docs.turris.cz/basics/reforis/https/https/",
+                            "_blank"
+                        );
+                    });
+                }
 
-	</div>
-	<script async src="/turris-theme/darkmode_body.js"></script>
-</body>
+                if (httpsRedirectButton) {
+                    httpsRedirectButton.addEventListener("click", () => {
+                        location.href = location.href.replace(
+                            "http://",
+                            "https://"
+                        );
+                    });
+                }
+            });
+        </script>
+        <script src="/turris-theme/bootstrap.bundle.min.js"></script>
+    </body>
 </html>
