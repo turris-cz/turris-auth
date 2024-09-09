@@ -3,10 +3,7 @@
 """Lighttpd's dynamic configuration.
 We need dynamic configuration to be independent on resources installation location (as that is given by setuptools).
 """
-import pathlib
 import shutil
-
-RESOURCES = pathlib.Path(__file__).parent / "resources"
 
 
 def _server(authorizer: bool, luci_login: bool) -> str:
@@ -29,9 +26,6 @@ var.turris_auth_scriptname = "turris-auth"
 var.turris_auth = {_server(True, luci_login)}
 var.turris_auth_responder = ( turris_auth_scriptname => {_server(False, luci_login)})
 
-alias.url += (
-    "/turris-auth" => "{RESOURCES}"
-)
 fastcgi.server += (
     "/login" => turris_auth_responder,
     "/logout" => turris_auth_responder,

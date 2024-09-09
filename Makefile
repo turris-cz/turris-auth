@@ -1,3 +1,8 @@
+PROJECT="turris-auth"
+VERSION=$(shell sed -En "s/.*version = ['\"](.+)['\"].*/\1/p" pyproject.toml)
+COPYRIGHT_HOLDER="CZ.NIC z.s.p.o. (https://www.nic.cz/)"
+MSGID_BUGS_ADDRESS="packaging@turris.cz"
+
 MAKEFLAGS += --no-builtin-rules
 null :=
 space := $(null) #
@@ -48,8 +53,10 @@ extract-$(1): $$($(1)_POT)
 $$($(1)_POT): $$($(1)_SOURCES)
 	pybabel extract \
 		--mapping-file="$$($(1)_PATH)/locale/babel.cfg" \
-		--msgid-bugs-address="packaging@turris.cz" \
-		--copyright-holder="CZ.NIC z.s.p.o" \
+		--msgid-bugs-address=$(MSGID_BUGS_ADDRESS) \
+		--copyright-holder=$(COPYRIGHT_HOLDER) \
+		--project=$(PROJECT) \
+		--version=$(VERSION) \
 		--output-file="$$@" \
 		--input-dirs "$$(subst $$(space),$$(comma),$$^)"
 
@@ -61,6 +68,7 @@ $$($(1)_PO): %.po: $$($(1)_POT)
 		--domain "$(1)" \
 		--locale $$(shell sed -n 's/"Language: \([a-z]\+\).*/\1/p' "$$@") \
 		--input-file="$$<" \
+		--update-header-comment \
 		--output-file="$$@"
 
 .PHONY: $(1)
