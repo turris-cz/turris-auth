@@ -59,7 +59,7 @@ msgstr "Passwort"
 
 #: turris_auth/server/templates/login.html.j2:175
 msgid "Log in"
-msgstr "Anmelden"
+msgstr "Anmeldung"
 
 #: turris_auth/server/templates/login.html.j2:183
 #: turris_auth/server/templates/login.html.j2:191

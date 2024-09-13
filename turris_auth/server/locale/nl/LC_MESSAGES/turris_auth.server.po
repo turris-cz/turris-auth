@@ -1,0 +1,63 @@
+# Translations template for turris-auth.
+# Copyright (C) 2021 CZ.NIC z.s.p.o
+# This file is distributed under the same license as the turris-auth
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: turris-auth 0.2.0\n"
+"Report-Msgid-Bugs-To: packaging@turris.cz\n"
+"POT-Creation-Date: 2021-12-06 14:17+0100\n"
+"PO-Revision-Date: 2024-01-04 21:10+0000\n"
+"Last-Translator: powerburner-nl <peter.mulder.1981@gmail.com>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/turris/turris-auth/"
+"nl/>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.4-dev\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: turris_auth/server/templates/login.html.j2:26
+msgid "Login"
+msgstr "Inloggen"
+
+#: turris_auth/server/templates/login.html.j2:39
+msgid "Wrong password."
+msgstr "Wachtwoord is ongeldig."
+
+#: turris_auth/server/templates/login.html.j2:42
+#: turris_auth/server/templates/login.html.j2:43
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: turris_auth/server/templates/login.html.j2:44
+msgid "Log in"
+msgstr "Inloggen"
+
+#: turris_auth/server/templates/login.html.j2:51
+msgid "You are connected over insecure protocol!"
+msgstr "Je maakt verbinding via een onbeveiligd protocol!"
+
+#: turris_auth/server/templates/login.html.j2:52
+msgid ""
+"This can be exploited by attackers to gain access to your password and "
+"thus to router's configuration. We highly suggest that you use secure "
+"connection to login to router's web services. You can find more info in "
+"our "
+msgstr ""
+"Dit kan misbruikt worden door aanvallers om toegang te krijgen tot uw "
+"wachtwoord en daarmee tot de configuratie van de router. We raden u ten "
+"zeerste aan om een beveiligde verbinding te gebruiken om in te loggen op de "
+"webservices van de router. U kunt meer informatie vinden in onze "
+
+#: turris_auth/server/templates/login.html.j2:53
+msgid "online documentation"
+msgstr "online documentatie"
+
+#: turris_auth/server/templates/login.html.j2:54
+msgid "Click here to redirect to secure protocol."
+msgstr "Klik hier om omgeleid te worden naar het beveiligde protocol."
