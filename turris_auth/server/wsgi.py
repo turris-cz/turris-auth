@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Copyright 2021, CZ.NIC z.s.p.o. (http://www.nic.cz/)
-"""Fast CGI implementation for login gateway.
-"""
+# Copyright 2021-2024, CZ.NIC z.s.p.o. (https://www.nic.cz/)
+"""Fast CGI implementation for login gateway."""
+
 import cgi
 import cgitb
 import http
@@ -62,6 +62,7 @@ class Server:
                     "POST/login": self._login_post,
                     "GET/logout": self._logout,
                     "GET/login.json": self._status,
+                    "POST/extend-session": self._extend_session,
                 }[f"{environ['REQUEST_METHOD']}{environ['SCRIPT_NAME']}"](
                     environ, start_response
                 )
@@ -95,6 +96,15 @@ class Server:
             else:  # X-Requested-With header is not used by browser but should be specified by AJAX requests
                 start_response(STATUS_UNAUTHORIZED, [])
         return []
+
+    def _extend_session(self, environ, start_response):
+        """Extend the current session if valid."""
+        if cookie.verify(environ.get("HTTP_COOKIE"), self.luci_login):
+            start_response(STATUS_OK, [])
+            return ["Session extended"]
+        else:
+            start_response(STATUS_UNAUTHORIZED, [("Content-type", "text/plain")])
+            return ["Unauthorized"]
 
     def _login_new_session(self, environ, start_response):
         httpcookie = cookie.generate(

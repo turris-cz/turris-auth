@@ -1,8 +1,9 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Copyright 2021, CZ.NIC z.s.p.o. (http://www.nic.cz/)
+# Copyright 2021-2024, CZ.NIC z.s.p.o. (https://www.nic.cz/)
 """Lighttpd's dynamic configuration.
 We need dynamic configuration to be independent on resources installation location (as that is given by setuptools).
 """
+
 import shutil
 
 
@@ -30,4 +31,5 @@ fastcgi.server += (
     "/login" => turris_auth_responder,
     "/logout" => turris_auth_responder,
     "/login.json" => turris_auth_responder,
+    "/extend-session" => turris_auth_responder,
 )"""
