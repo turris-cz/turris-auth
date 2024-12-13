@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: turris-auth 0.2.0\n"
 "Report-Msgid-Bugs-To: packaging@turris.cz\n"
 "POT-Creation-Date: 2024-08-28 15:19+0200\n"
-"PO-Revision-Date: 2024-10-15 07:15+0000\n"
-"Last-Translator: Moha684 <nahil82466@gmail.com>\n"
+"PO-Revision-Date: 2024-12-14 18:00+0000\n"
+"Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/turris/"
 "turris-auth/fr/>\n"
 "Language: fr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.8-rc\n"
+"X-Generator: Weblate 5.9-rc\n"
 "Generated-By: Babel 2.16.0\n"
 
 #: turris_auth/server/templates/login.html.j2:34
@@ -34,12 +34,10 @@ msgid "Toggle theme"
 msgstr "Supprimer le thème"
 
 #: turris_auth/server/templates/login.html.j2:100
-#, fuzzy
 msgid "Light"
-msgstr "Lumineux"
+msgstr "Clair"
 
 #: turris_auth/server/templates/login.html.j2:120
-#, fuzzy
 msgid "Dark"
 msgstr "Sombre"
 
