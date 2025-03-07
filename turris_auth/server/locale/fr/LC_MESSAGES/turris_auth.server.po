@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: turris-auth 0.2.0\n"
 "Report-Msgid-Bugs-To: packaging@turris.cz\n"
 "POT-Creation-Date: 2024-08-28 15:19+0200\n"
-"PO-Revision-Date: 2022-01-21 05:53+0000\n"
-"Last-Translator: Gabriel GRONDIN <gglinnk@protonmail.com>\n"
+"PO-Revision-Date: 2024-12-14 18:00+0000\n"
+"Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/turris/"
+"turris-auth/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/turris/turris-"
-"auth/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.9-rc\n"
 "Generated-By: Babel 2.16.0\n"
 
 #: turris_auth/server/templates/login.html.j2:34
@@ -26,31 +27,31 @@ msgstr "Se connecter"
 
 #: turris_auth/server/templates/login.html.j2:75
 msgid "Toggle theme (auto)"
-msgstr ""
+msgstr "Supprimer le thème (auto)"
 
 #: turris_auth/server/templates/login.html.j2:80
 msgid "Toggle theme"
-msgstr ""
+msgstr "Supprimer le thème"
 
 #: turris_auth/server/templates/login.html.j2:100
 msgid "Light"
-msgstr ""
+msgstr "Clair"
 
 #: turris_auth/server/templates/login.html.j2:120
 msgid "Dark"
-msgstr ""
+msgstr "Sombre"
 
 #: turris_auth/server/templates/login.html.j2:140
 msgid "Auto"
-msgstr ""
+msgstr "Automatique"
 
 #: turris_auth/server/templates/login.html.j2:154
 msgid "Turris Logo"
-msgstr ""
+msgstr "Logo Turris"
 
 #: turris_auth/server/templates/login.html.j2:159
 msgid "Incorrect password. Please try again."
-msgstr ""
+msgstr "Mot de passe incorrect. Veuillez réessayer."
 
 #: turris_auth/server/templates/login.html.j2:162
 #: turris_auth/server/templates/login.html.j2:169
@@ -64,23 +65,25 @@ msgstr "Se connecter"
 #: turris_auth/server/templates/login.html.j2:183
 #: turris_auth/server/templates/login.html.j2:191
 msgid "Warning: You're using an insecure connection!"
-msgstr ""
+msgstr "Attention: Vous utilisez une connexion non sécurisé!"
 
 #: turris_auth/server/templates/login.html.j2:194
 msgid "This can expose your password and router settings to attackers."
 msgstr ""
+"Cela peut faire divulguer ton mot de passe et tes paramétrages de routeur "
+"aux attaquants."
 
 #: turris_auth/server/templates/login.html.j2:196
 msgid "Please switch to a secure connection for safety."
-msgstr ""
+msgstr "Merci de vous dirigez sur une connexion plus sûre."
 
 #: turris_auth/server/templates/login.html.j2:202
 msgid "Switch to HTTPS"
-msgstr ""
+msgstr "Passer au HTTPS"
 
 #: turris_auth/server/templates/login.html.j2:209
 msgid "Learn more"
-msgstr ""
+msgstr "Voir plus"
 
 #~ msgid "Wrong password."
 #~ msgstr "Mot de passe erroné."
@@ -111,4 +114,3 @@ msgstr ""
 
 #~ msgid "Click here to redirect to secure protocol."
 #~ msgstr "Cliquez ici pour être redirigé vers un protocole sécurisé."
-
