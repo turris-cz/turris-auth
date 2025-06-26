@@ -1,15 +1,31 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Copyright 2021, CZ.NIC z.s.p.o. (http://www.nic.cz/)
+# Copyright 2025, CZ.NIC z.s.p.o. (http://www.nic.cz/)
 import argparse
 import logging
 import logging.handlers
 import os
 import sys
 
-from distutils.util import strtobool
-
 from . import Server
 from .config import config
+
+
+def strtobool (val):
+    """ Copied from depracated python module distutils
+
+    Convert a string representation of truth to true (1) or false (0).
+
+    True values are 'y', 'yes', 't', 'true', 'on', and '1'; false values
+    are 'n', 'no', 'f', 'false', 'off', and '0'.  Raises ValueError if
+    'val' is anything else.
+    """
+    val = val.lower()
+    if val in ('y', 'yes', 't', 'true', 'on', '1'):
+        return 1
+    elif val in ('n', 'no', 'f', 'false', 'off', '0'):
+        return 0
+    else:
+        raise ValueError("invalid truth value %r" % (val,))
 
 
 def main():
