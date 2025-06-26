@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "turris-auth"
-version = "1.3.0"
+version = "1.3.1"
 dynamic = []
 description = "Turris Authenticator for web applications"
 license = { "text" = "GPL-3.0" }
